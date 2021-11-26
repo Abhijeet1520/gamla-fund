@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap");
+
+.login_container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 130px;
+  border: 5px solid rgb(22, 47, 190);
+  border-radius: 10px;
+}
+
+.login_left {
+  display: grid;
+  place-items: left;
+}
+
+.login_left img {
+  width: 100%;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.login_right {
+  display: grid;
+  place-items: center;
+}
+
+.login_right .logo {
+  font-family: "Playfair Display", serif;
+  font-size: 3.2rem;
+}
+
+.login_input {
+  width: 80%;
+  height: 50px;
+  border: none;
+  border-bottom: 2px solid rgb(22, 47, 190);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  padding: 15px;
+}
+
+.login_input:focus {
+  border: transparent;
+}
+
+.btn,
+.btn2 {
+  width: 200px;
+  height: 40px;
+  font-size: 20px;
+  font-family: "Source Serif Pro", serif;
+  font-weight: bold;
+  text-align: center;
+  line-height: 25px;
+  letter-spacing: 1.2px;
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  background: linear-gradient(-45deg, #ffa63d, #ff3d77, #338aff, #3cf0c5);
+  background-size: 600%;
+  -webkit-animation: anime 16s linear infinite;
+  animation: anime 16s linear infinite;
+}
+
+@keyframes anime {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.ask_signup {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+.no_account {
+  font-size: 1rem;
+  padding-right: 8px;
+}
