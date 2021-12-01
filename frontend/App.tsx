@@ -1,96 +1,158 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useMoralis, useMoralisWeb3Api, useMoralisWeb3ApiCall } from "react-moralis";
+import React from "react";
+import { useMoralis } from "react-moralis";
 import { useWalletConnect } from "./WalletConnect";
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { LogBox } from "react-native";
 
-const styles = StyleSheet.create({
-  center: { alignItems: "center", justifyContent: "center" },
-  white: { backgroundColor: "white" },
-  margin: { marginBottom: 20 },
-  marginLarge: { marginBottom: 35 },
-});
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import SplashScreen from "./Components/SplashScreen";
+import CryptoAuth from "./Components/CryptoAuth";
+import RecentTransactions from "./Components/RecentTransactions/RecentTransactions";
+import Assets from "./Components/Assets/Assets";
+import Transfer from "./Components/Transfer/Transfer";
+import Profile from "./Components/Profile/Profile";
+import Header from "./Components/Header";
+import NFTAssets from "./Components/NFT/NFTAssets";
 
-function Web3ApiExample(): JSX.Element {
-  const { Moralis } = useMoralis();
-  const {
-    account: { getTokenBalances },
-  } = useMoralisWeb3Api();
-  const { data, isFetching, error } = useMoralisWeb3ApiCall(getTokenBalances);
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import {
+  faCreditCard,
+  faCoins,
+  faUser,
+  faPaperPlane,
+  faRocket,
+} from "@fortawesome/free-solid-svg-icons";
 
-  useEffect(() => {
-    Moralis.Web3API.account.getTokenBalances({ address: "" }).then(console.log);
-  }, []);
+import Moralis from "moralis/types";
 
-  if (isFetching) {
-    return (
-      <View style={styles.marginLarge}>
-        <Text>Fetching token-balances...</Text>
-      </View>
-    );
-  }
+LogBox.ignoreAllLogs();
 
-  if (error) {
-    return (
-      <View style={styles.marginLarge}>
-        <Text>Error:</Text>
-        <Text>{JSON.stringify(error)}</Text>
-      </View>
-    );
-  }
-
+// const Activecolor =
+function Home(): JSX.Element {
   return (
-    <View style={styles.marginLarge}>
-      <Text>Tokens</Text>
-      <Text>{JSON.stringify(data)}</Text>
-    </View>
+    <Tab.Navigator
+      shifting={false}
+      activeColor="#315399"
+      // inactiveColor="#3e2465"
+      barStyle={{ backgroundColor: "white" }}>
+      <Tab.Screen
+        name="Assets"
+        options={{
+          tabBarLabel: "Assets",
+          tabBarIcon: ({ color, focused }) => {
+            return <FontAwesomeIcon icon={faCoins} color={color} size={20} />;
+          },
+        }}
+        component={Assets}
+      />
+      <Tab.Screen
+        name="Transactions"
+        options={{
+          tabBarLabel: "Transactions",
+          tabBarIcon: ({ color }) => (
+            <FontAwesomeIcon icon={faCreditCard} color={color} size={20} />
+          ),
+        }}
+        component={RecentTransactions}
+      />
+      <Tab.Screen
+        name="NFTAssets"
+        options={{
+          tabBarLabel: "NFTAssets",
+          tabBarIcon: ({ color, focused }) => {
+            return <FontAwesomeIcon icon={faRocket} color={color} size={20} />;
+          },
+        }}
+        component={NFTAssets}
+      />
+      <Tab.Screen
+        name="Transfer"
+        options={{
+          tabBarLabel: "Transfer",
+          tabBarIcon: ({ color }) => (
+            <FontAwesomeIcon icon={faPaperPlane} color={color} size={20} />
+          ),
+        }}
+        component={Transfer}
+      />
+
+      <Tab.Screen
+        name="Profile"
+        options={{
+          tabBarLabel: "Profile",
+          tabBarIcon: ({ color }) => (
+            <FontAwesomeIcon icon={faUser} color={color} size={20} />
+          ),
+        }}
+        component={Profile}
+      />
+    </Tab.Navigator>
   );
 }
 
-function UserExample(): JSX.Element {
-  const { user } = useMoralis();
+const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
+function getHeaderTitle(route) {
+  // If the focused route is not found, we need to assume it's the initial screen
+  // This can happen during if there hasn't been any navigation inside the screen
+  // In our case, it's "Feed" as that's the first screen inside the navigator
+  const routeName = getFocusedRouteNameFromRoute(route) ?? "Feed";
 
-  return (
-    <View style={styles.marginLarge}>
-      <Text>UserName: {user.getUsername()}</Text>
-      <Text>Email: {user.getEmail() ?? "-"}</Text>
-      <Text>Address: {user.get("ethAddress")}</Text>
-    </View>
-  );
+  switch (routeName) {
+    case "Assets":
+      return "Assets";
+    case "Transfer":
+      return "Transfer";
+    case "Transactions":
+      return "Transactions";
+    case "Profile":
+      return "Profile";
+  }
 }
 
 function App(): JSX.Element {
   const connector = useWalletConnect();
-  const { authenticate, authError, isAuthenticating, isAuthenticated, logout, Moralis } = useMoralis();
+  const {
+    authenticate,
+    authError,
+    isAuthenticating,
+    isAuthenticated,
+    logout,
+    Moralis,
+  } = useMoralis();
 
   return (
-    <View style={[StyleSheet.absoluteFill, styles.center, styles.white]}>
-      <View style={styles.marginLarge}>
-        {authError && (
-          <>
-            <Text>Authentication error:</Text>
-            <Text style={styles.margin}>{authError.message}</Text>
-          </>
-        )}
-        {isAuthenticating && <Text style={styles.margin}>Authenticating...</Text>}
-        {!isAuthenticated && (
-          // @ts-ignore
-          <TouchableOpacity onPress={() => authenticate({ connector })}>
-            <Text>Authenticate</Text>
-          </TouchableOpacity>
-        )}
-        {isAuthenticated && (
-          <TouchableOpacity onPress={() => logout()}>
-            <Text>Logout</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-      {isAuthenticated && (
-        <View>
-          <UserExample />
-          <Web3ApiExample />
-        </View>
-      )}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="SplashScreen">
+        {/* SplashScreen which will come once for 5 Seconds */}
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          // Hiding header for Splash Screen
+          options={{ headerShown: false }}
+        />
+        {/* Auth Navigator: Include Login and Signup */}
+        <Stack.Screen
+          name="Auth"
+          component={CryptoAuth}
+          options={{ headerShown: false }}
+        />
+        {/* Navigation Drawer as a landing page */}
+        <Stack.Screen
+          name="DrawerNavigationRoutes"
+          component={Home}
+          // Hiding header for Navigation Drawer
+          options={{ headerTitle: (props) => <Header /> }}
+          // options={({ route }) => ({
+          //   headerTitle: getHeaderTitle(route),
+          // })}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
