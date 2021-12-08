@@ -21,7 +21,7 @@ const screenOptionStyle = { headerShown: false };
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Profile"
+      initialRouteName="Login"
       screenOptions={screenOptionStyle}
     >
       {Object.keys(Screens).map(function (key, index) {
