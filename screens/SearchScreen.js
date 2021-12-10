@@ -1,14 +1,25 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { SearchBar } from 'react-native-elements';
 
-class SearchScreen extends Component {
+export default class SearchScreen extends React.Component {
+  state = {
+    search: '',
+  };
+
+  updateSearch = (search) => {
+    this.setState({ search });
+  };
+
   render() {
+    const { search } = this.state;
+
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>SearchScreen</Text>
-      </View>
+      <SearchBar
+        placeholder="Type Here..."
+        onChangeText={this.updateSearch}
+        value={search}
+      />
     );
   }
 }
 
-export { SearchScreen };

@@ -28,11 +28,11 @@ import {
   useMoralisWeb3Api,
   useMoralisWeb3ApiCall,
 } from "react-moralis";
-import { useWalletConnect } from "./WalletConnect";
+import { useWalletConnect } from "../WalletConnect";
 import LottieView from "lottie-react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Animation from "./splashLottie.json";
+import Animation from "../splashLottie.json";
 
 // import Loader from './Components/Loader';
 const windowWidth = Dimensions.get("window").width;
@@ -102,7 +102,7 @@ const LoginScreen = ({ navigation }) => {
               <View style={{ alignItems: "center" }}>
                 <LottieView source={Animation} loop autoPlay />
                 <Image
-                  source={require("./moralis-logo.png")}
+                  source={require("../moralis-logo.png")}
                   style={{
                     width: "50%",
                     height: 100,
