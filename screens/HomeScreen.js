@@ -1,14 +1,24 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import React from "react";
+import { SearchBar } from 'react-native-elements';
 
-class HomeScreen extends Component {
+export default class HomeScreen extends React.Component {
+  state = {
+    search: '',
+  };
+
+  updateSearch = (search) => {
+    this.setState({ search });
+  };
+
   render() {
+    const { search } = this.state;
+
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text> Home Screen! </Text>
-      </View>
-    )
+      <SearchBar
+        placeholder="Type Here..."
+        onChangeText={this.updateSearch}
+        value={search}
+      />
+    );
   }
 }
-
-export default HomeScreen
