@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
+.projects__allItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.projects__searchBar{
+    display: grid;
+    place-items: center;
+}
+
+.projects__searchBar form {
+    margin-top: 3rem;
+    background-color: #fff;
+    width: 260px;
+    height: 44px;
+    border-radius: 10px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    margin-bottom: 20px;
+    border: 2px solid black;
+}
+
+.projects__searchBar input {
+    all: unset;
+    font: 16px system-ui;
+    height: 100%;
+    width: 100%;
+    padding: 6px 10px;
+    color: black;
+  }
+  
+  .projects__searchBar ::placeholder {
+    color: black;
+    opacity: 0.7; 
+    font-size: 18px;
+  }
+  
+  .projects__searchBar svg {
+    color: black;
+    fill: currentColor;
+    width: 43px;
+    height: 43px;
+    padding: 10px;
+  }
+  
+  .projects__searchBar button {
+    all: unset;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+  }
+
+  .btn_center {
+    margin-top: -120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+  @media (max-width: 750px) {
+    .projectfr {
+        position: absolute;
+        width: 80vw;
+        height: 29px;
+        font-size: 50px;
+    }
+    .projectbg {
+        display: none;
+    }
+    .projects__searchBar form {
+        margin-left: 3vw;
+    }
+}

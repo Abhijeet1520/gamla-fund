@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
@@ -9,44 +10,35 @@ function Navbar() {
   return (
     <>
       <nav className='navbar'>
-        <div to='/' className='navbar-logo' onClick={closeMobileMenu}>
+        <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
           GAMLA Fund
-        </div>
+        </Link>
         <div className='menu-icon' onClick={handleClick}>
           <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
         </div>
         <ul className={click ? 'nav-menu active' : 'nav-menu'}>
           <li className='nav-item'>
-            <div to='/' className='nav-links' onClick={closeMobileMenu}>
+            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
               Home
-            </div>
+            </Link>
           </li>
           <li className='nav-item'>
-            <div
-              to='/'
+            <Link
+              to='/search'
               className='nav-links'
               onClick={closeMobileMenu}
             >
-              Funds
-            </div>
+              Search Funds
+            </Link>
           </li>
           <li className='nav-item'>
-            <div
-              to='/'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              Funds History
-            </div>
-          </li>
-          <li className='nav-item'>
-            <div
-              to='/'
+            <Link
+              to='/profile'
               className='nav-links'
               onClick={closeMobileMenu}
             >
               Profile
-            </div>
+            </Link>
           </li>
         </ul>
       </nav>

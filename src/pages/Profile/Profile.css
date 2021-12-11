@@ -1,0 +1,28 @@
+.user_profile {
+  display: grid;
+  place-items: center;
+}
+
+.title {
+  font-size: 4rem;
+  padding: 10px;
+}
+
+.line {
+  width: 60%;
+  height: 1px;
+  background-color: #000;
+  margin: 5px;
+}
+
+.user_img {
+  margin-top: 25px;
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+}
+
+.user_info{
+    font-size: 2rem;
+    padding: 10px;
+}
